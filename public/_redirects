@@ -1,12 +1,17 @@
-# === Maintenance mode: allow only /wartung ===
+# === Maintenance mode: show /wartung for EVERYTHING (loop-safe) ===
 
-/wartung    /wartung    200
+# Allow maintenance page itself (both forms)
+/wartung     /wartung     200
+/wartung/*   /wartung     200
 
-# Assets erlauben, damit Wartungsseite sauber lädt
-/images/*   /images/:splat   200
-/favicon*   /favicon:splat   200
-/robots.txt /robots.txt      200
-/sitemap*   /sitemap:splat   200
+# Allow Astro build assets (important, sonst kann es je nach Setup "komisch" wirken)
+/_astro/*    /_astro/:splat   200
 
-# Alles andere auf Wartung
-/*          /wartung    302
+# Allow static assets used by the maintenance page
+/images/*    /images/:splat   200
+/favicon*    /favicon:splat   200
+/robots.txt  /robots.txt      200
+/sitemap*    /sitemap:splat   200
+
+# Everything else: rewrite to maintenance page (NO redirect -> NO loop)
+/*           /wartung         200
