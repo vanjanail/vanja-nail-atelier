@@ -1,0 +1,12 @@
+# === Maintenance mode: allow only /wartung ===
+
+/wartung    /wartung    200
+
+# Assets erlauben, damit Wartungsseite sauber lädt
+/images/*   /images/:splat   200
+/favicon*   /favicon:splat   200
+/robots.txt /robots.txt      200
+/sitemap*   /sitemap:splat   200
+
+# Alles andere auf Wartung
+/*          /wartung    302

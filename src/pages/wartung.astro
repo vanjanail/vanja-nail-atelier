@@ -1,0 +1,140 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const instagramUrl = "https://instagram.com/vanja.nail.atelier"; // ggf. anpassen
+---
+
+<BaseLayout
+  title="Vanja Nail Atelier – Wartung"
+  description="Die Website wird gerade überarbeitet. Bitte kontaktiere uns für Terminanfragen."
+>
+  <section class="maint">
+    <div class="container">
+      <div class="card">
+        <div class="eyebrow">VANJA NAIL ATELIER</div>
+
+        <h1 class="title">Kurz offline – wir machen’s gerade noch schöner.</h1>
+
+        <p class="lead">
+          Die Website wird aktuell überarbeitet (Mobile & Inhalte). Bald geht´s weiter!
+        </p>
+
+        <div class="actions" aria-label="Kontaktmöglichkeiten">
+          <a class="btn-primary" href="/kontakt">Termin & Kontakt</a>
+          <a class="btn-ghost" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+        </div>
+
+        <div class="fine">Danke für dein Verständnis. 💗</div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .maint{
+      padding: 48px 0 56px;
+      min-height: calc(100vh - 140px);
+      display:flex;
+      align-items:center;
+    }
+
+    .card{
+      max-width: 860px;
+      margin: 0 auto;
+      border-radius: 28px;
+      border: 1px solid rgba(192,122,134,0.14);
+      background:
+        radial-gradient(820px 260px at 18% 10%, rgba(192,122,134,0.12), transparent 60%),
+        radial-gradient(900px 360px at 86% 30%, rgba(231,192,184,0.16), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,247,245,0.62));
+      box-shadow: var(--shadow);
+      padding: 26px;
+      text-align: center;
+    }
+
+    .eyebrow{
+      font-size: 12px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(23,19,20,.55);
+      margin-bottom: 14px;
+    }
+
+    .title{
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(30px, 5.4vw, 46px);
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      color: rgba(23,19,20,0.92);
+    }
+
+    .lead{
+      margin: 0 auto;
+      max-width: 70ch;
+      color: rgba(23,19,20,.68);
+      line-height: 1.75;
+      font-size: 15.5px;
+    }
+
+    .actions{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      justify-content:center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(192,122,134,0.34);
+      background: linear-gradient(180deg, rgba(192,122,134,0.92), rgba(192,122,134,0.78));
+      color: #fff;
+      box-shadow: 0 18px 48px rgba(20,12,14,0.16);
+      transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+      min-width: 180px;
+    }
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 22px 58px rgba(20,12,14,0.20);
+      filter: saturate(1.02);
+    }
+
+    .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background: rgba(255,255,255,0.55);
+      color: rgba(23,19,20,0.82);
+      box-shadow: 0 12px 30px rgba(20,12,14,0.08);
+      backdrop-filter: blur(10px);
+      transition: transform .14s ease, box-shadow .14s ease;
+      min-width: 180px;
+    }
+    .btn-ghost:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 18px 44px rgba(20,12,14,0.12);
+    }
+
+    .fine{
+      margin-top: 16px;
+      font-size: 12.5px;
+      color: rgba(23,19,20,.52);
+    }
+
+    @media (max-width: 520px){
+      .maint{ padding: 34px 0 46px; }
+      .card{ padding: 20px; text-align: left; }
+      .actions{ justify-content: flex-start; }
+      .btn-primary, .btn-ghost{ width: 100%; min-width: 0; }
+    }
+  </style>
+</BaseLayout>
