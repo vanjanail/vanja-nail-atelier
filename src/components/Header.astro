@@ -15,7 +15,8 @@ const isCurrent = (href: string) => norm(currentPath) === norm(href);
 
 const onKontakt = isCurrent("/kontakt");
 ---
-<header class="header">
+
+<header class="header" data-header>
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="Startseite Vanja Nail Atelier">
       <img
@@ -27,6 +28,7 @@ const onKontakt = isCurrent("/kontakt");
       />
     </a>
 
+    <!-- Desktop Nav -->
     <nav class="nav" aria-label="Hauptnavigation">
       <div class="nav-links">
         {nav.map((item) => (
@@ -64,6 +66,107 @@ const onKontakt = isCurrent("/kontakt");
         </span>
         Termin anfragen
       </a>
+
+      <!-- Mobile Toggle (visible via CSS) -->
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Menü öffnen"
+        aria-controls="mobileNav"
+        aria-expanded="false"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 7h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M5 17h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
     </nav>
   </div>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav" id="mobileNav" data-mobile-nav aria-hidden="true">
+    <div class="mobile-backdrop" data-nav-close></div>
+
+    <div class="mobile-panel" role="dialog" aria-label="Menü">
+      <div class="mobile-panel-head">
+        <div class="mobile-panel-title">Menü</div>
+        <button class="mobile-close" type="button" aria-label="Menü schließen" data-nav-close>
+          ×
+        </button>
+      </div>
+
+      <div class="mobile-panel-body">
+        <div class="mobile-links" aria-label="Navigation">
+          {nav.map((item) => (
+            <a
+              class="mobile-link"
+              href={item.href}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              data-nav-link
+            >
+              {item.label}
+              <span aria-hidden="true">›</span>
+            </a>
+          ))}
+        </div>
+
+        <a
+          class:list={["cta", "mobile-cta", onKontakt ? "cta-muted" : ""]}
+          href="/kontakt"
+          aria-label="Termin anfragen"
+          data-nav-link
+        >
+          <span class="cta-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M7 3.8v2.2M17 3.8v2.2M6.2 7.6h11.6A3 3 0 0 1 20.8 10.6v8.6a3 3 0 0 1-3 3H6.2a3 3 0 0 1-3-3v-8.6a3 3 0 0 1 3-3Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.2 10.2h17.6"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          Termin anfragen
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const header = document.querySelector<HTMLElement>("[data-header]");
+    if (header) {
+      const openBtn = header.querySelector<HTMLButtonElement>("[data-nav-open]");
+      const mobileNav = header.querySelector<HTMLElement>("[data-mobile-nav]");
+      const closeEls = header.querySelectorAll<HTMLElement>("[data-nav-close]");
+      const linkEls = header.querySelectorAll<HTMLElement>("[data-nav-link]");
+
+      const setOpen = (isOpen: boolean): void => {
+        if (!openBtn || !mobileNav) return;
+
+        openBtn.setAttribute("aria-expanded", String(isOpen));
+        mobileNav.classList.toggle("is-open", isOpen);
+        mobileNav.setAttribute("aria-hidden", String(!isOpen));
+
+        // body scroll lock
+        document.documentElement.style.overflow = isOpen ? "hidden" : "";
+      };
+
+      openBtn?.addEventListener("click", () => setOpen(true));
+      closeEls.forEach((el) => el.addEventListener("click", () => setOpen(false)));
+      linkEls.forEach((el) => el.addEventListener("click", () => setOpen(false)));
+
+      window.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+    }
+  </script>
 </header>
