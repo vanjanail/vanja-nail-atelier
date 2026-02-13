@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanja Nail Atelier – Wartung</title>
+    <meta name="description" content="Die Website wird gerade überarbeitet. Bitte kontaktiere uns für Terminanfragen." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root{
+        --bg: #fbf6f4;
+        --surface: #ffffff;
+        --surface-2: #fff7f5;
+        --text: #171314;
+        --muted: rgba(23,19,20,.68);
+        --accent: #c07a86;
+        --border: rgba(23,19,20,0.10);
+        --shadow: 0 18px 50px rgba(20,12,14,0.10);
+        --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        --font-display: "Playfair Display", ui-serif, Georgia, "Times New Roman", Times, serif;
+      }
+
+      *{ box-sizing:border-box; }
+      body{
+        margin:0;
+        font-family: var(--font-body);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        background:
+          radial-gradient(900px 520px at 80% -10%, rgba(192,122,134,0.22), transparent 58%),
+          radial-gradient(800px 480px at 10% 20%, rgba(231,192,184,0.28), transparent 56%),
+          linear-gradient(180deg, rgba(255,255,255,0.65), transparent 32%),
+          var(--bg);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding: 28px 18px;
+      }
+
+      .wrap{
+        width: min(860px, 100%);
+      }
+
+      .card{
+        border-radius: 28px;
+        border: 1px solid rgba(192,122,134,0.14);
+        background:
+          radial-gradient(820px 260px at 18% 10%, rgba(192,122,134,0.12), transparent 60%),
+          radial-gradient(900px 360px at 86% 30%, rgba(231,192,184,0.16), transparent 62%),
+          linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,247,245,0.62));
+        box-shadow: var(--shadow);
+        padding: 26px;
+      }
+
+      .top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .logo{
+        height: 44px;
+        width: auto;
+        display:block;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 18px rgba(20,12,14,0.12));
+      }
+
+      .eyebrow{
+        font-size: 12px;
+        letter-spacing: .28em;
+        text-transform: uppercase;
+        color: rgba(23,19,20,.55);
+      }
+
+      h1{
+        margin: 8px 0 10px;
+        font-family: var(--font-display);
+        font-size: clamp(30px, 5.4vw, 46px);
+        letter-spacing: -0.02em;
+        line-height: 1.08;
+      }
+
+      p{
+        margin: 0;
+        color: var(--muted);
+        max-width: 72ch;
+        line-height: 1.75;
+        font-size: 15.5px;
+      }
+
+      .actions{
+        margin-top: 18px;
+        display:flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      a{
+        text-decoration:none;
+        color: inherit;
+      }
+
+      .btn-primary{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(192,122,134,0.34);
+        background: linear-gradient(180deg, rgba(192,122,134,0.92), rgba(192,122,134,0.78));
+        color: #fff;
+        box-shadow: 0 18px 48px rgba(20,12,14,0.16);
+        transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+        min-width: 180px;
+      }
+      .btn-primary:hover{
+        transform: translateY(-1px);
+        box-shadow: 0 22px 58px rgba(20,12,14,0.20);
+        filter: saturate(1.02);
+      }
+
+      .btn-ghost{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(23,19,20,0.10);
+        background: rgba(255,255,255,0.55);
+        color: rgba(23,19,20,0.82);
+        box-shadow: 0 12px 30px rgba(20,12,14,0.08);
+        backdrop-filter: blur(10px);
+        transition: transform .14s ease, box-shadow .14s ease;
+        min-width: 180px;
+      }
+      .btn-ghost:hover{
+        transform: translateY(-1px);
+        box-shadow: 0 18px 44px rgba(20,12,14,0.12);
+      }
+
+      .fine{
+        margin-top: 14px;
+        font-size: 12.5px;
+        color: rgba(23,19,20,.52);
+      }
+
+      @media (max-width: 520px){
+        .card{ padding: 20px; }
+        .actions > a{ width: 100%; min-width: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div class="top">
+          <div class="brand">
+            <img class="logo" src="/images/logo/logo.svg" alt="Vanja Nail Atelier" />
+          </div>
+          <div class="eyebrow">VANJA NAIL ATELIER</div>
+        </div>
+
+        <h1>Kurz offline – wir machen’s gerade noch schöner.</h1>
+        <p>
+          Die Website wird aktuell überarbeitet (Mobile & Inhalte). Terminanfragen gehen weiterhin ganz normal.
+        </p>
+
+        <div class="actions" aria-label="Kontaktmöglichkeiten">
+          <a class="btn-primary" href="/kontakt">Termin & Kontakt</a>
+          <a class="btn-ghost" href="https://instagram.com/vanja.nail.atelier" target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+        </div>
+
+        <div class="fine">Danke für dein Verständnis. 💗</div>
+      </div>
+    </div>
+  </body>
+</html>
