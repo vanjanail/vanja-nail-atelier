@@ -1,0 +1,83 @@
+---
+type Props = {
+  title: string;
+  lead?: string;
+  badge?: string;
+  variant?: "info" | "premium";
+};
+
+const { title, lead, badge, variant = "info" } = Astro.props as Props;
+
+const boxClass = variant === "premium" ? "premium-card" : "info-box";
+---
+
+<aside class={boxClass}>
+  <header class="ic-head">
+    <div class="ic-titlewrap">
+      <h3 class="ic-title">{title}</h3>
+      {lead ? <p class="ic-lead">{lead}</p> : null}
+    </div>
+
+    {badge ? <span class="ic-badge">{badge}</span> : null}
+  </header>
+
+  <div class="ic-divider" aria-hidden="true"></div>
+
+  <div class="ic-body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  /* wirkt auf info-box + premium-card gleichermaßen "edler", ohne global zu brechen */
+  .ic-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 12px;
+  }
+
+  .ic-titlewrap{ min-width: 0; }
+
+  .ic-title{
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .ic-lead{
+    margin: 8px 0 0;
+    color: rgba(23,19,20,0.66);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 56ch;
+  }
+
+  /* Badge in "clean" statt sehr rosé-lastig */
+  .ic-badge{
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(23,19,20,0.10);
+    background: rgba(255,255,255,0.70);
+    color: rgba(23,19,20,0.78);
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .ic-divider{
+    height: 1px;
+    margin: 14px 0 12px;
+    background: linear-gradient(
+      90deg,
+      rgba(192,122,134,0.00),
+      rgba(192,122,134,0.22),
+      rgba(192,122,134,0.00)
+    );
+  }
+
+  .ic-body{
+    color: rgba(23,19,20,0.80);
+  }
+</style>

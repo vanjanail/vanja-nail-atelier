@@ -1,0 +1,186 @@
+---
+type Props = {
+  kicker?: string;
+  title: string;
+  lead?: string;
+  heroBackgroundSrc?: string;
+};
+
+const { kicker = "ROSÉ • NUDE • ZEITLOS", title, lead, heroBackgroundSrc } =
+  Astro.props as Props;
+
+const heroStyle = heroBackgroundSrc
+  ? `--hero-bg: url(${heroBackgroundSrc});`
+  : `--hero-bg: none;`;
+---
+
+<section class="hero" style={heroStyle}>
+  <div class="container hero-content">
+    <div class="hero-left">
+      {kicker ? <div class="kicker">{kicker}</div> : null}
+      <h1 set:html={title} />
+      {lead ? <p class="hero-lead">{lead}</p> : null}
+
+      <div class="hero-actions">
+        <slot name="actions" />
+      </div>
+
+      <div class="hero-chips" aria-label="Highlights">
+        <slot name="chips" />
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="side-wrap">
+        <slot name="side" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container tiles-wrap">
+    <div class="tiles" aria-label="Schnellzugriff">
+      <slot name="tiles" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero{
+    position: relative;
+    padding: 92px 0 34px;
+    overflow: hidden;
+  }
+
+  /* Background: sichtbarer + soft vignette */
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.04);
+    z-index: 0;
+
+    /* weniger milchig, etwas klarer */
+    filter: saturate(1.06) contrast(1.03) brightness(1.05);
+    opacity: 0.95;
+  }
+
+  /* Overlay: statt „grau“ -> weiche Maske mit Licht von links */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index: 1;
+    background:
+      radial-gradient(820px 520px at 18% 32%, rgba(251,246,244,0.88), rgba(251,246,244,0.42) 55%, rgba(251,246,244,0.14) 74%, rgba(251,246,244,0.06)),
+      radial-gradient(780px 520px at 86% 36%, rgba(192,122,134,0.16), transparent 60%),
+      linear-gradient(180deg, rgba(251,246,244,0.20), rgba(251,246,244,0.06));
+  }
+
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    display:grid;
+    grid-template-columns: 1.28fr 0.72fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  .hero-left{ max-width: 68ch; }
+
+  .kicker{
+    margin:0 0 12px;
+    color: rgba(23,19,20,0.72);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  h1{
+    margin: 0 0 14px;
+    font-family: var(--font-display);
+    font-size: clamp(40px, 4.8vw, 64px);
+    letter-spacing: -0.03em;
+    line-height: 1.03;
+  }
+
+  .hero-lead{
+    margin: 0;
+    color: rgba(23,19,20,0.72);
+    font-size: 16px;
+    max-width: 62ch;
+  }
+
+  .hero-actions{
+    margin-top: 20px;
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-chips{
+    margin-top: 14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+  }
+
+  .hero-chips :global(.chip){
+    border-radius: 999px;
+    border: 1px solid rgba(23,19,20,0.10);
+    background: rgba(255,255,255,0.62);
+    padding: 7px 11px;
+    font-size: 12px;
+    color: rgba(23,19,20,0.62);
+    box-shadow: 0 10px 26px rgba(20,12,14,0.04);
+    backdrop-filter: blur(12px);
+  }
+
+  /* Sidecard: weniger "Kasten", mehr Premium-Glasrahmen */
+  .hero-right{
+    display:flex;
+    justify-content: flex-end;
+  }
+
+  .side-wrap{
+    width: min(520px, 100%);
+    margin-right: -16px;
+    border-radius: 28px;
+    padding: 10px;
+
+    background:
+      radial-gradient(820px 240px at 20% 0%, rgba(192,122,134,0.14), transparent 60%),
+      rgba(255,255,255,0.20);
+    border: 1px solid rgba(23,19,20,0.08);
+    box-shadow: 0 22px 66px rgba(20,12,14,0.16);
+    backdrop-filter: blur(16px);
+  }
+
+  /* InfoCard in der Side: clean, aber nicht nackt */
+  .hero-right :global(.info-box){
+    background: rgba(255,255,255,0.86) !important;
+    border: 1px solid rgba(23,19,20,0.08) !important;
+    box-shadow: 0 12px 30px rgba(20,12,14,0.08) !important;
+    border-radius: 22px !important;
+    padding: 16px !important;
+  }
+
+  .tiles-wrap{
+    position: relative;
+    z-index: 2;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 1100px){
+    .side-wrap{ margin-right: 0; }
+  }
+
+  @media (max-width: 1000px){
+    .hero-content{ grid-template-columns: 1fr; }
+    .hero-right{ justify-content: stretch; }
+    .side-wrap{ width: 100%; }
+  }
+</style>

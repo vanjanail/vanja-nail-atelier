@@ -1,0 +1,193 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Tile from "../components/Tile.astro";
+import InfoCard from "../components/InfoCard.astro";
+
+const heroBackgroundSrc = "/images/gallery/vanja-05.jpeg";
+
+const tiles = [
+  {
+    href: "/leistungen",
+    title: "Leistungen",
+    badge: "Übersicht",
+    text: "Neumodellage, Refill, Pflege – elegant & sauber.",
+  },
+  {
+    href: "/galerie",
+    title: "Galerie",
+    badge: "Looks",
+    text: "Inspirationen & Beispiele (fortlaufend ergänzt).",
+  },
+  {
+    href: "/kontakt",
+    title: "Kontakt",
+    badge: "Termin",
+    text: "WhatsApp/Instagram/E-Mail – schnell & unkompliziert.",
+  },
+];
+---
+
+<BaseLayout
+  title="Vanja Nail Atelier – Premium Nail Design"
+  description="Premium Nail Design mit sauberem, edlem Finish. Rosé, Nude, zeitlos – Termine nach Vereinbarung."
+>
+  <Hero
+    heroBackgroundSrc={heroBackgroundSrc}
+    title={"Premium Nail Design<br />mit sauberem, edlem Finish"}
+    lead="Ruhige Eleganz, präzise Details und ein Finish, das hochwertig wirkt – von clean bis dezenter Akzent. Termine nach Vereinbarung."
+  >
+    <Fragment slot="actions">
+      <a class="btn-primary" href="/kontakt">Termin anfragen</a>
+      <a class="btn-ghost" href="/galerie">Galerie ansehen</a>
+    </Fragment>
+
+    <Fragment slot="chips">
+      <span class="chip">Clean & elegant</span>
+      <span class="chip">Privates Atelier</span>
+      <span class="chip">Termine nach Vereinbarung</span>
+    </Fragment>
+
+    <Fragment slot="side">
+      <InfoCard title="Auf einen Blick" variant="info">
+        <div class="facts">
+          <div class="fact">
+            <div class="fact-k">Ort</div>
+            <div class="fact-v">Privates Studio</div>
+            <div class="fact-s">Adresse nach Anfrage</div>
+          </div>
+
+          <div class="fact">
+            <div class="fact-k">Zeiten</div>
+            <div class="fact-v">Mo.–Sa.</div>
+            <div class="fact-s">nach Vereinbarung</div>
+          </div>
+
+          <div class="fact">
+            <div class="fact-k">Kontakt</div>
+            <div class="fact-v">WhatsApp / IG</div>
+            <div class="fact-s">E-Mail optional</div>
+          </div>
+        </div>
+
+        <div class="mini-hr"></div>
+
+        <div class="how">
+          <span class="how-ic" aria-hidden="true">✓</span>
+          Für eine schnelle Einschätzung: <strong>Wunschdatum</strong> + <strong>Designidee (Foto)</strong> + <strong>Länge/Form</strong>.
+        </div>
+      </InfoCard>
+    </Fragment>
+
+    <Fragment slot="tiles">
+      {tiles.map((t) => (
+        <Tile href={t.href} title={t.title} badge={t.badge} text={t.text} />
+      ))}
+    </Fragment>
+  </Hero>
+
+  <style>
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(192,122,134,0.34);
+      background: linear-gradient(180deg, rgba(192,122,134,0.92), rgba(192,122,134,0.78));
+      color: #fff;
+      box-shadow: 0 18px 48px rgba(20,12,14,0.16);
+      transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+    }
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 22px 58px rgba(20,12,14,0.20);
+      filter: saturate(1.02);
+    }
+
+    .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background: rgba(255,255,255,0.55);
+      color: rgba(23,19,20,0.82);
+      box-shadow: 0 12px 30px rgba(20,12,14,0.08);
+      backdrop-filter: blur(10px);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .btn-ghost:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 18px 44px rgba(20,12,14,0.12);
+    }
+
+    /* Auf einen Blick: kompakt & nicht "Tabellen-nackt" */
+    .facts{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .fact{
+      border-radius: 16px;
+      border: 1px solid rgba(23,19,20,0.08);
+      background: rgba(255,255,255,0.62);
+      padding: 10px 11px;
+    }
+
+    .fact-k{
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(23,19,20,0.55);
+      margin-bottom: 6px;
+    }
+
+    .fact-v{
+      font-weight: 800;
+      color: rgba(23,19,20,0.88);
+      line-height: 1.1;
+    }
+
+    .fact-s{
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(23,19,20,0.62);
+    }
+
+    .mini-hr{
+      height: 1px;
+      background: rgba(192,122,134,0.14);
+      margin: 12px 0;
+    }
+
+    .how{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(23,19,20,0.68);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .how-ic{
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(192,122,134,0.16);
+      border: 1px solid rgba(192,122,134,0.22);
+      color: rgba(23,19,20,0.75);
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    @media (max-width: 1000px){
+      .facts{ grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

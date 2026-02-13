@@ -1,0 +1,374 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const services = [
+  {
+    title: "Neumodellage",
+    tag: "Signature",
+    desc: "Neuer Aufbau mit ruhigem, sauberem Finish – clean bis dezent.",
+    points: ["Form & Aufbau (natürlich/elegant)", "Rosé/Nude oder Classic", "Design nach Wunsch (dezent)"],
+  },
+  {
+    title: "Auffüllen (Refill)",
+    tag: "Refresh",
+    desc: "Sauberer Rebuild – Haltbarkeit & Optik im Fokus.",
+    points: ["Material anpassen & Übergänge glätten", "Neues Finish + Glanz", "Design neu oder gleichbleibend"],
+  },
+  {
+    title: "Clean & Natural",
+    tag: "Minimal",
+    desc: "Zeitlos, gepflegt, business-tauglich.",
+    points: ["Dezente Farbe / Nude", "Cleanes Finish", "Elegant & zurückhaltend"],
+  },
+  {
+    title: "Design / Extras",
+    tag: "Add-on",
+    desc: "Feine Akzente, die premium wirken – ohne „zu viel“.",
+    points: ["French / Babyboomer", "Minimal Art / Highlights", "Individuell nach Aufwand"],
+  },
+];
+
+const steps = [
+  { no: "01", title: "Wunsch senden", text: "Wunschdatum + Stil + optional Foto." },
+  { no: "02", title: "Rückmeldung", text: "Du bekommst eine klare Einschätzung & Termin." },
+  { no: "03", title: "Termin im Studio", text: "Ruhig, sauber, präzise – Premium-Finish." },
+];
+---
+
+<BaseLayout
+  title="Leistungen – Vanja Nail Atelier"
+  description="Leistungen: Neumodellage, Refill, Pflege und dezente Designs im Premium Look."
+>
+  <section class="section page-top service-page">
+    <div class="container">
+      <!-- Head -->
+      <header class="service-head">
+        <div class="eyebrow">LEISTUNGEN</div>
+        <h2 class="h">Ruhig. Präzise. Premium.</h2>
+        <p class="lead">
+          Fokus auf saubere Arbeit, ruhige Eleganz und ein Finish, das hochwertig wirkt – ohne überladen zu sein.
+        </p>
+
+        <div class="meta">
+          <span class="meta-item"><span class="m-dot"></span>Termine nach Vereinbarung</span>
+          <span class="meta-item"><span class="m-dot"></span>Rosé / Nude / zeitlos</span>
+          <span class="meta-item"><span class="m-dot"></span>Privates Studio</span>
+        </div>
+      </header>
+
+      <!-- Layout -->
+      <div class="service-layout">
+        <!-- Left: Service cards -->
+        <div class="service-grid" aria-label="Leistungen Übersicht">
+          {services.map((s) => (
+            <article class="svc-card">
+              <div class="svc-top">
+                <h3 class="svc-title">{s.title}</h3>
+                <span class="svc-tag">{s.tag}</span>
+              </div>
+              <p class="svc-desc">{s.desc}</p>
+              <ul class="svc-list">
+                {s.points.map((p) => (
+                  <li><span class="dot"></span>{p}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <!-- Right: Slim sticky info -->
+        <aside class="service-aside" aria-label="Termin & Empfehlung">
+          <div class="aside-card">
+            <div class="aside-top">
+              <span class="pill">Ablauf</span>
+            </div>
+
+            <div class="steps" aria-label="Ablauf in 3 Schritten">
+              {steps.map((st) => (
+                <div class="step">
+                  <div class="step-no">{st.no}</div>
+                  <div class="step-body">
+                    <div class="step-title">{st.title}</div>
+                    <div class="step-text">{st.text}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div class="mini-hr"></div>
+
+            <div class="recommend">
+              <div class="rec-title">Unsicher?</div>
+              <div class="rec-text">
+                Starte lieber <strong>clean</strong> – Akzente kann man später ergänzen. Premium wirkt über saubere Details.
+              </div>
+            </div>
+
+            <div class="aside-actions">
+              <a class="btn-contact" href="/kontakt">Termin anfragen</a>
+              <a class="btn secondary" href="/preise">Preise ansehen</a>
+            </div>
+
+            <div class="fineprint">
+              Für eine schnelle Einschätzung: <strong>Wunschdatum + Foto + Länge/Form</strong>.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <style is:global>
+    .page-top{ padding-top: 26px; }
+
+    .service-page{
+      position: relative;
+      overflow: hidden;
+    }
+    .service-page::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 420px at 18% 0%, rgba(192,122,134,0.12), transparent 60%),
+        radial-gradient(900px 380px at 86% 10%, rgba(231,192,184,0.14), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,0.52), transparent 40%);
+      opacity: .95;
+    }
+    .service-page .container{ position: relative; z-index: 1; }
+
+    /* Head */
+    .service-head{
+      max-width: 78ch;
+      margin-bottom: 16px;
+    }
+    .eyebrow{
+      font-size: 12px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: rgba(23,19,20,.55);
+      margin-bottom: 10px;
+    }
+    .h{
+      margin: 0 0 10px;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.6vw, 46px);
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+    .lead{
+      margin: 0;
+      color: rgba(23,19,20,.68);
+    }
+
+    .meta{
+      margin-top: 14px;
+      display:flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: rgba(23,19,20,.58);
+      font-size: 13px;
+    }
+    .meta-item{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .m-dot{
+      width: 7px; height: 7px; border-radius: 999px;
+      background: rgba(192,122,134,0.55);
+      box-shadow: 0 8px 18px rgba(20,12,14,0.08);
+    }
+
+    /* Layout */
+    .service-layout{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 16px;
+      align-items:start;
+    }
+
+    /* Cards: slightly slimmer than before */
+    .service-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .svc-card{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(192,122,134,0.14);
+      background:
+        radial-gradient(520px 220px at 10% 0%, rgba(192,122,134,0.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,247,245,0.76));
+      box-shadow: var(--shadowSoft);
+      padding: 16px;
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    }
+    .svc-card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(192,122,134,0.26);
+      box-shadow: 0 20px 60px rgba(20,12,14,0.12);
+    }
+
+    .svc-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .svc-title{
+      margin:0;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+    .svc-tag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(192,122,134,0.18);
+      background: rgba(192,122,134,0.08);
+      color: rgba(23,19,20,.80);
+      white-space: nowrap;
+    }
+    .svc-desc{
+      margin: 0;
+      color: rgba(23,19,20,.62);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .svc-list{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display:grid;
+      gap: 7px;
+    }
+    .svc-list li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(23,19,20,.60);
+      font-size: 14px;
+    }
+
+    /* Aside: slimmer, sticky, less “blocky” */
+    .service-aside{
+      position: sticky;
+      top: 92px; /* unter Header */
+    }
+
+    .aside-card{
+      border-radius: 22px;
+      border: 1px solid rgba(192,122,134,0.12);
+      background:
+        radial-gradient(700px 220px at 10% 0%, rgba(192,122,134,0.08), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,247,245,0.68));
+      box-shadow: 0 14px 42px rgba(20,12,14,0.08);
+      padding: 14px;
+    }
+
+    .aside-top{
+      display:flex;
+      justify-content:flex-end;
+      margin-bottom: 8px;
+    }
+
+    .pill{
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background: rgba(255,255,255,0.50);
+      color: rgba(23,19,20,0.66);
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .steps{
+      display:grid;
+      gap: 10px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns: 40px 1fr;
+      gap: 10px;
+      align-items:start;
+    }
+    .step-no{
+      width: 40px;
+      height: 34px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      color: rgba(23,19,20,.78);
+      background:
+        radial-gradient(240px 120px at 20% 0%, rgba(192,122,134,0.14), transparent 62%),
+        rgba(255,255,255,0.28);
+      box-shadow: 0 10px 22px rgba(20,12,14,0.06);
+      backdrop-filter: blur(10px);
+    }
+    .step-title{
+      font-weight: 850;
+      font-size: 13.5px;
+      color: rgba(23,19,20,.86);
+      line-height: 1.15;
+    }
+    .step-text{
+      margin-top: 3px;
+      font-size: 12.5px;
+      color: rgba(23,19,20,.58);
+      line-height: 1.35;
+    }
+
+    .mini-hr{
+      height: 1px;
+      background: rgba(192,122,134,0.16);
+      margin: 12px 0;
+    }
+
+    .recommend .rec-title{
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .recommend .rec-text{
+      color: rgba(23,19,20,.62);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .aside-actions{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .aside-actions .btn-contact,
+    .aside-actions .btn.secondary{
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .fineprint{
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: rgba(23,19,20,.46);
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px){
+      .service-layout{ grid-template-columns: 1fr; }
+      .service-aside{ position: static; }
+      .service-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

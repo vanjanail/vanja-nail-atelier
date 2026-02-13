@@ -1,0 +1,36 @@
+---
+type Props = {
+  href: string;
+  title: string;
+  text: string;
+  badge?: string;
+  ariaLabel?: string;
+  target?: "_self" | "_blank";
+};
+
+const {
+  href,
+  title,
+  text,
+  badge,
+  ariaLabel,
+  target = "_self",
+} = Astro.props as Props;
+
+const isExternal = /^https?:\/\//.test(href);
+const rel = target === "_blank" || isExternal ? "noopener noreferrer" : undefined;
+---
+
+<a
+  class="tile"
+  href={href}
+  aria-label={ariaLabel ?? title}
+  target={target}
+  rel={rel}
+>
+  <div class="tile-top">
+    <div class="tile-title">{title}</div>
+    {badge ? <span class="badge">{badge}</span> : null}
+  </div>
+  <div class="tile-sub">{text}</div>
+</a>

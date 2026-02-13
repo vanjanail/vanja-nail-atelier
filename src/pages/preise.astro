@@ -1,0 +1,411 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const highlights = [
+  { icon: "€", title: "ab-Preise", text: "Transparente Orientierung" },
+  { icon: "✓", title: "Einschätzung vorab", text: "Foto + Wunsch genügt" },
+  { icon: "⏱", title: "Aufwand-basiert", text: "Länge, Zustand, Extras" },
+];
+
+const cards = [
+  {
+    title: "Neumodellage",
+    price: "ab XX €",
+    desc: "Neuer Aufbau + Finish im Signature Look.",
+    bullets: ["Clean / Nude / French möglich", "Preis je nach Länge & Design"],
+  },
+  {
+    title: "Refill",
+    price: "ab XX €",
+    desc: "Auffrischen + sauberer Rebuild.",
+    bullets: ["inkl. neues Finish", "Aufwand abhängig vom Zustand"],
+  },
+  {
+    title: "Design / Extras",
+    price: "ab XX €",
+    desc: "Feine Akzente, die premium wirken.",
+    bullets: ["French / Babyboomer / Minimal Art", "Individuell je Design & Aufwand"],
+  },
+];
+---
+
+<BaseLayout
+  title="Preise – Vanja Nail Atelier"
+  description="Preise – transparente Orientierung mit ab-Preisen und klarer Struktur."
+>
+  <section class="section page-top price-page">
+    <div class="container">
+      <!-- Header -->
+      <div class="price-hero">
+        <div class="price-hero-left">
+          <div class="price-eyebrow">PREISE</div>
+          <h2 class="price-title">Transparente Orientierung</h2>
+
+          <p class="price-lead">
+            Mit <strong>ab-Preisen</strong> als fairem Richtwert. Der finale Preis hängt vom Aufwand ab
+            (Länge, Design, Zustand, Extras).
+          </p>
+
+          <div class="price-highlights" aria-label="Preis-Highlights">
+            {highlights.map((h) => (
+              <div class="ph-item" aria-label={`${h.title}: ${h.text}`}>
+                <span class="ph-icon" aria-hidden="true">{h.icon}</span>
+                <span class="ph-text">
+                  <span class="ph-title">{h.title}</span>
+                  <span class="ph-sub">{h.text}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <aside class="price-hero-right">
+          <div class="price-note">
+            <div class="price-note-top">
+              <span class="price-pill">Fair & professionell</span>
+            </div>
+
+            <p class="price-note-text">
+              Für eine schnelle Einschätzung: <strong>Wunsch + Foto</strong> schicken – du bekommst vorab eine klare Rückmeldung.
+            </p>
+
+            <div class="price-note-actions">
+              <a class="btn-contact" href="/kontakt">Preis anfragen</a>
+              <a class="btn secondary" href="/leistungen">Leistungen ansehen</a>
+            </div>
+
+            <div class="price-fineprint">
+              Hinweis: Bei sehr langen Nägeln / Reparaturen kann der Aufwand variieren.
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="price-divider" aria-hidden="true"></div>
+
+      <!-- Cards -->
+      <div class="grid-3 price-grid">
+        {cards.map((c) => (
+          <div class="premium-card price-card">
+            <div class="card-head">
+              <h3 class="card-title">{c.title}</h3>
+
+              <span class="price-tag-lite" aria-label={`Preis: ${c.price}`}>
+                <span class="pt-prefix">ab</span>
+                <span class="pt-price">{c.price.replace(/^ab\s*/i, "")}</span>
+              </span>
+            </div>
+
+            <p class="card-desc">{c.desc}</p>
+
+            <ul class="card-list compact">
+              {c.bullets.map((b) => (
+                <li><span class="dot"></span>{b}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Why (Accordion) -->
+      <details class="price-acc" open={false}>
+        <summary class="price-acc-sum">
+          <span class="price-acc-title">Warum „ab“-Preise?</span>
+          <span class="price-pill soft">Transparenz</span>
+          <span class="price-acc-chevron" aria-hidden="true">⌄</span>
+        </summary>
+
+        <div class="price-acc-body">
+          <p class="muted" style="margin:0; max-width: 82ch;">
+            Premium-Nageldesign ist stark abhängig vom Aufwand. „ab“-Preise sind ehrlich und professionell –
+            du bekommst vor dem Termin eine klare Einschätzung, wenn du <strong>Wunsch + Foto + Länge/Form</strong> schickst.
+          </p>
+
+          <div class="price-acc-actions">
+            <a class="btn-contact" href="/kontakt">Preis anfragen</a>
+            <a class="btn secondary" href="/leistungen">Leistungen ansehen</a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <style is:global>
+    /* ===== Preise Page Mood ===== */
+    .price-page{ position: relative; overflow: hidden; }
+    .price-page::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 560px at 20% 0%, rgba(192,122,134,0.10), transparent 62%),
+        radial-gradient(900px 520px at 86% 10%, rgba(231,192,184,0.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.55), transparent 46%);
+      opacity: .95;
+    }
+    .price-page .container{ position: relative; z-index: 1; }
+
+    /* ===== Hero ===== */
+    .price-hero{
+      display:grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 30px;
+      align-items:start;
+      margin-bottom: 34px;
+    }
+
+    .price-eyebrow{
+      font-size: 12px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(23,19,20,.52);
+      margin-bottom: 14px;
+    }
+
+    .price-title{
+      margin: 0 0 14px;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 3.8vw, 46px);
+      letter-spacing: -0.025em;
+      line-height: 1.07;
+    }
+
+    .price-lead{
+      margin: 0;
+      color: rgba(23,19,20,.66);
+      max-width: 78ch;
+      line-height: 1.75;
+    }
+
+    /* ===== Highlights (leichter) ===== */
+    .price-highlights{
+      margin-top: 26px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      gap: 34px;
+      flex-wrap: wrap;
+      padding-top: 2px;
+    }
+
+    .ph-item{ display:flex; align-items:flex-start; gap: 10px; position: relative; }
+    .ph-item:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      right: -17px;
+      top: 3px;
+      width: 1px;
+      height: 28px;
+      background: linear-gradient(180deg, transparent, rgba(192,122,134,0.18), transparent);
+      opacity: .85;
+    }
+
+    .ph-icon{
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 800;
+      color: rgba(23,19,20,.76);
+      background:
+        radial-gradient(240px 120px at 20% 0%, rgba(192,122,134,0.10), transparent 62%),
+        rgba(255,255,255,0.14);
+      box-shadow: 0 8px 18px rgba(20,12,14,0.04);
+      backdrop-filter: blur(10px);
+      flex: 0 0 auto;
+      margin-top: 2px;
+      font-size: 13px;
+    }
+
+    .ph-text{ display:flex; flex-direction: column; line-height: 1.12; }
+    .ph-title{
+      font-weight: 850;
+      color: rgba(23,19,20,.88);
+      letter-spacing: -0.01em;
+      font-size: 13.5px;
+      white-space: nowrap;
+    }
+    .ph-sub{
+      margin-top: 6px;
+      color: rgba(23,19,20,.54);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* ===== Divider ===== */
+    .price-divider{
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192,122,134,0.16), transparent);
+      margin: 10px 0 26px;
+    }
+
+    /* ===== Right note ===== */
+    .price-note{
+      border-radius: 22px;
+      border: 1px solid rgba(192,122,134,0.11);
+      background:
+        radial-gradient(700px 220px at 10% 0%, rgba(192,122,134,0.07), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,247,245,0.68));
+      box-shadow: 0 14px 42px rgba(20,12,14,0.08);
+      padding: 14px;
+    }
+    .price-note-top{ display:flex; justify-content:flex-end; margin-bottom: 8px; }
+
+    .price-pill{
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background: rgba(255,255,255,0.48);
+      color: rgba(23,19,20,0.66);
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+    .price-pill.soft{ background: rgba(255,255,255,0.42); color: rgba(23,19,20,0.60); }
+
+    .price-note-text{ margin: 0; color: rgba(23,19,20,.68); line-height: 1.48; font-size: 13.5px; }
+
+    .price-note-actions{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .price-note-actions .btn-contact,
+    .price-note-actions .btn.secondary{
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .price-fineprint{ margin-top: 10px; font-size: 11.5px; color: rgba(23,19,20,.46); }
+
+    /* ===== Cards ===== */
+    .price-grid{
+      margin-top: 0;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .price-card{
+      display:flex;
+      flex-direction: column;
+      min-height: 198px;
+      padding: 26px;
+      background:
+        radial-gradient(520px 260px at 10% 0%, rgba(192,122,134,0.08), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,247,245,0.74));
+    }
+
+    .price-card .card-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .price-tag-lite{
+      display:inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.38);
+      border: 1px solid rgba(23,19,20,0.075);
+      box-shadow: 0 10px 24px rgba(20,12,14,0.045);
+      backdrop-filter: blur(10px);
+      color: rgba(23,19,20,0.74);
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .pt-prefix{
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(23,19,20,0.50);
+    }
+    .pt-price{
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      font-size: 13px;
+      color: rgba(23,19,20,0.82);
+    }
+
+    .card-desc{
+      line-height: 1.7;
+      margin: 0 0 10px;
+      color: rgba(23,19,20,0.64);
+    }
+
+    .card-list.compact{
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    .dot{ width: 7px; height: 7px; margin-top: 7px; background: rgba(192,122,134,0.50); }
+
+    /* ===== Accordion ===== */
+    .price-acc{
+      border-radius: 22px;
+      border: 1px solid rgba(23,19,20,0.08);
+      background: rgba(255,255,255,0.55);
+      box-shadow: 0 18px 52px rgba(20,12,14,0.06);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .price-acc-sum{
+      list-style: none;
+      cursor: pointer;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 18px 20px;
+    }
+    .price-acc-sum::-webkit-details-marker{ display:none; }
+
+    .price-acc-title{
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-right: auto;
+    }
+
+    .price-acc-chevron{
+      width: 18px;
+      height: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(23,19,20,.60);
+      transition: transform .18s ease;
+    }
+    details[open] .price-acc-chevron{ transform: rotate(180deg); }
+
+    .price-acc-body{ padding: 0 20px 20px; }
+
+    .price-acc-actions{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1000px){
+      .price-hero{ grid-template-columns: 1fr; gap: 18px; margin-bottom: 22px; }
+      .price-divider{ margin: 12px 0 20px; }
+      .price-highlights{ gap: 16px; }
+      .ph-item:not(:last-child)::after{ display:none; }
+      .ph-title, .ph-sub{ white-space: normal; }
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+const { currentPath = "/" } = Astro.props;
+
+const nav = [
+  { href: "/", label: "Startseite" },
+  { href: "/leistungen", label: "Leistungen" },
+  { href: "/galerie", label: "Galerie" },
+  { href: "/preise", label: "Preise" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+
+// robust gegen trailing slash (falls /galerie/ etc.)
+const norm = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
+const isCurrent = (href: string) => norm(currentPath) === norm(href);
+
+const onKontakt = isCurrent("/kontakt");
+---
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Startseite Vanja Nail Atelier">
+      <img
+        class="brand-logo"
+        src="/images/logo/logo.svg"
+        alt="Vanja Nail Atelier"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <div class="nav-links">
+        {nav.map((item) => (
+          <a
+            class="nav-link"
+            href={item.href}
+            aria-current={isCurrent(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <a
+        class:list={["cta", onKontakt ? "cta-muted" : ""]}
+        href="/kontakt"
+        aria-label="Termin anfragen"
+      >
+        <span class="cta-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M7 3.8v2.2M17 3.8v2.2M6.2 7.6h11.6A3 3 0 0 1 20.8 10.6v8.6a3 3 0 0 1-3 3H6.2a3 3 0 0 1-3-3v-8.6a3 3 0 0 1 3-3Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3.2 10.2h17.6"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            />
+          </svg>
+        </span>
+        Termin anfragen
+      </a>
+    </nav>
+  </div>
+</header>
