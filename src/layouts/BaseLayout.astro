@@ -1,4 +1,5 @@
 ---
+// src/layouts/BaseLayout.astro
 const { title, description } = Astro.props;
 
 import "../styles/global.css";
@@ -16,7 +17,6 @@ const currentPath = Astro.url.pathname;
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Premium Fonts (optional, aber stark fürs Look&Feel) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

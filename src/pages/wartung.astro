@@ -26,7 +26,10 @@ const instagramUrl = "https://instagram.com/vanja.nail.atelier"; // ggf. anpasse
           </a>
         </div>
 
-        <div class="fine">Danke für dein Verständnis. 💗</div>
+        <!-- Fix: auf Mobile immer mittig, auch wenn Card linksbündig wird -->
+        <div class="fine" aria-label="Hinweis">
+          Danke für dein Verständnis. 💗
+        </div>
       </div>
     </div>
   </section>
@@ -124,10 +127,13 @@ const instagramUrl = "https://instagram.com/vanja.nail.atelier"; // ggf. anpasse
       box-shadow: 0 18px 44px rgba(20,12,14,0.12);
     }
 
+    /* Fix: immer mittig, unabhängig von Card-Textausrichtung */
     .fine{
       margin-top: 16px;
       font-size: 12.5px;
       color: rgba(23,19,20,.52);
+      text-align: center;
+      width: 100%;
     }
 
     @media (max-width: 520px){
@@ -135,6 +141,9 @@ const instagramUrl = "https://instagram.com/vanja.nail.atelier"; // ggf. anpasse
       .card{ padding: 20px; text-align: left; }
       .actions{ justify-content: flex-start; }
       .btn-primary, .btn-ghost{ width: 100%; min-width: 0; }
+
+      /* Wichtig: trotz "text-align:left" in .card bleibt Fine mittig */
+      .fine{ text-align: center; }
     }
   </style>
 </BaseLayout>

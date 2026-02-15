@@ -1,4 +1,5 @@
 ---
+// src/components/Header.astro
 const { currentPath = "/" } = Astro.props;
 
 const nav = [
@@ -21,16 +22,21 @@ const onKontakt = isCurrent("/kontakt");
     <a class="brand" href="/" aria-label="Startseite Vanja Nail Atelier">
       <img
         class="brand-logo"
-        src="/images/logo/logo.svg"
+        src="/images/logo/logo-header.png"
+        srcset="/images/logo/logo-header.png 83w, /images/logo/logo-header@2x.png 166w, /images/logo/logo-header@3x.png 249w"
+        sizes="(min-width: 900px) 140px, 120px"
+        width="83"
+        height="39"
         alt="Vanja Nail Atelier"
         loading="eager"
         decoding="async"
+        fetchpriority="high"
       />
     </a>
 
     <!-- Desktop Nav -->
     <nav class="nav" aria-label="Hauptnavigation">
-      <div class="nav-links">
+      <div class="nav-links" data-desktop-links>
         {nav.map((item) => (
           <a
             class="nav-link"
@@ -46,6 +52,7 @@ const onKontakt = isCurrent("/kontakt");
         class:list={["cta", onKontakt ? "cta-muted" : ""]}
         href="/kontakt"
         aria-label="Termin anfragen"
+        data-desktop-cta
       >
         <span class="cta-ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
@@ -67,7 +74,7 @@ const onKontakt = isCurrent("/kontakt");
         Termin anfragen
       </a>
 
-      <!-- Mobile Toggle (visible via CSS) -->
+      <!-- Mobile Toggle -->
       <button
         class="nav-toggle"
         type="button"
@@ -89,7 +96,7 @@ const onKontakt = isCurrent("/kontakt");
   <div class="mobile-nav" id="mobileNav" data-mobile-nav aria-hidden="true">
     <div class="mobile-backdrop" data-nav-close></div>
 
-    <div class="mobile-panel" role="dialog" aria-label="Menü">
+    <div class="mobile-panel" role="dialog" aria-label="Menü" aria-modal="true">
       <div class="mobile-panel-head">
         <div class="mobile-panel-title">Menü</div>
         <button class="mobile-close" type="button" aria-label="Menü schließen" data-nav-close>
@@ -141,6 +148,144 @@ const onKontakt = isCurrent("/kontakt");
     </div>
   </div>
 
+  <style>
+    .nav-toggle{
+      display:none;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      border: 1px solid rgba(23,19,20,0.08);
+      background: rgba(255,255,255,0.52);
+      box-shadow: 0 10px 22px rgba(20,12,14,0.07);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-toggle svg{ width: 18px; height: 18px; color: rgba(23,19,20,0.78); }
+
+    .mobile-nav{
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: none;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .16s ease;
+    }
+    .mobile-nav.is-open{
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-backdrop{
+      position: absolute;
+      inset: 0;
+      background: rgba(10,6,7,0.55);
+      backdrop-filter: blur(8px);
+    }
+
+    .mobile-panel{
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 8px;
+      border-radius: 22px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(192,122,134,0.12), transparent 60%),
+        rgba(255,255,255,0.88);
+      box-shadow: 0 24px 80px rgba(20,12,14,0.22);
+      overflow: hidden;
+      transform: translateY(-6px);
+      transition: transform .16s ease;
+    }
+    .mobile-nav.is-open .mobile-panel{ transform: translateY(0); }
+
+    .mobile-panel-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 9px 11px;
+      border-bottom: 1px solid rgba(23,19,20,0.08);
+    }
+    .mobile-panel-title{
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: rgba(23,19,20,0.88);
+      font-size: 18px;
+    }
+
+    .mobile-close{
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      border: 1px solid rgba(23,19,20,0.10);
+      background: rgba(255,255,255,0.70);
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 0;
+      color: rgba(23,19,20,0.70);
+    }
+
+    .mobile-panel-body{
+      padding: 10px 12px 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mobile-links{ display: grid; gap: 8px; }
+
+    .mobile-link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(23,19,20,0.08);
+      background: rgba(255,255,255,0.62);
+      color: rgba(23,19,20,0.82);
+      font-size: 17px;
+      line-height: 1.2;
+    }
+    .mobile-link span{
+      opacity: .55;
+      font-size: 22px;
+      transform: translateY(-1px);
+    }
+
+    .mobile-link[aria-current="page"]{
+      font-weight: 800;
+      border-color: rgba(192,122,134,0.24);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .mobile-cta{
+      width: 100%;
+      justify-content: center;
+      padding: 12px 14px;
+    }
+
+    @media (max-width: 420px){
+      .nav-toggle{ width: 42px; height: 42px; border-radius: 15px; }
+    }
+
+    @media (max-width: 899px){
+      .nav-links{ display:none; }
+      [data-desktop-cta]{ display:none; }
+      .nav-toggle{ display:inline-flex; }
+    }
+
+    @media (min-width: 900px){
+      .mobile-nav{ display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important; }
+    }
+  </style>
+
   <script>
     const header = document.querySelector<HTMLElement>("[data-header]");
     if (header) {
@@ -166,6 +311,12 @@ const onKontakt = isCurrent("/kontakt");
 
       window.addEventListener("keydown", (e: KeyboardEvent) => {
         if (e.key === "Escape") setOpen(false);
+      });
+
+      // Wenn man auf Desktop resizet: Menü sauber schließen
+      const mq = window.matchMedia("(min-width: 900px)");
+      mq.addEventListener("change", (e: MediaQueryListEvent) => {
+        if (e.matches) setOpen(false);
       });
     }
   </script>
